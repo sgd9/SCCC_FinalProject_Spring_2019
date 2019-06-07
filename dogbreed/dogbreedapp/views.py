@@ -8,3 +8,9 @@ def index (request):
 def gettypes(request):
     dogbreed_list=DogBreed.objects.all()
     return render(request, 'dogbreedapp/types.html' ,{'dogbreed_list' : dogbreed_list})
+
+def getdogs(request):
+    dogs_list=Dog.objects.all()
+    return render(request, 'dogbreedapp/dogs.html', {'dogs_list': dogs_list})
+
+ 
