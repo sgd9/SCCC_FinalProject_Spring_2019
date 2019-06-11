@@ -3,7 +3,7 @@ from django.urls import reverse
 from .models import DogBreed, Dog, Review
 from django.contrib.auth.models import User
 import datetime
-from .forms import ProductForm
+from .forms import DogbreedForm
 
 # Create your tests here.clear
 #test for models
@@ -27,7 +27,7 @@ class DogTest(TestCase):
         self.assertEqual(str(self.dogbre.dogbreed),'Alaskan Malammute')
 
     def test_discount(self):
-        self.assertEqual(self.prod.dogbreedrDiscount()100.00)
+        self.assertEqual(self.dogbre.dogbreedrdiscount(),100.00)
         
 #tests for views
 class IndexTest(TestCase):
@@ -40,34 +40,34 @@ class GetDogsTest(TestCase):
         self.u=User.objects.create(username='myUser')
         self.type=DogBreed.objects.create(dogbreedname='Airedale Terrier')
         self.dogbre=Dog.objects.create(dogname='dog1', dogbreed=self.type, user=self.u, 
-        dogbreedprice=500.00,dogbreedentrydate='2019-04-02', dogbreeddescription="some kind of dog")
+        dogbreedprice=500.00,dogbreedentrydate='2019-06-11', dogbreeddescription="some kind of dog")
     
-    def test_product_detail_success(self):
+    def test_dogbreed_detail_success(self):
         response=self.client.get(reverse('dogbreeddetails', args=(self.dogbre.id,)))
         self.assertEqual(response.status_code, 200)
 
-class ProductFormTest(TestCase):
+class DogbreedFormTest(TestCase):
     def setUp(self):
         self.user2=User.objects.create(username='user1', password='P@ssw0rd1')
         self.dog2=DogBreed.objects.create(dogbreedname='dog1')
     
-    def test_productForm(self):
+    def test_DogbreedForm(self):
         data={
             'dogname' : 'dog1',
             'dogbreed' : self.dog2,
             'user' : self.user2,
             'dogbreedprice' : 1700.00,
-            'productentrydate' : datetime.date(2019,6,5),
+            'dogbreedentrydate' : datetime.date(2019,6,11),
         }
-        form = ProductForm(data=data)
+        form = DogbreedForm(data=data)
         self.assertTrue(form.is_valid)
 
-    def test_productFormInvalid(self):
+    def test_DogbreedFormInvalid(self):
         data={
             'dogbreedname' : 'dog1',
             'dogbreed' : 'dog1',
             'user' : self.user2,
-            'dogbreedentrydate' : datetime.date(2019,5,28),
+            'dogbreedentrydate' : datetime.date(2019,6,11),
         }
-        form = ProductForm(data=data)
+        form = DogbreedForm(data=data)
         self.assertFalse(form.is_valid())
