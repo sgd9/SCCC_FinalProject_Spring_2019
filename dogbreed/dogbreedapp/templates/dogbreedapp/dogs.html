@@ -9,7 +9,7 @@
  {% for dogbre in dogs_list %}
    <tr>
        <td><a href="{% url 'dogbreeddetails' id=dogbre.id %}">{{ dogbre.dogname}}</a></td>
-       <td>{{ bogbre.dogbreedname }}</td>
+       <td>{{ dogbre.dogbreed }}</td>
    </tr>
 
  {% endfor %}
